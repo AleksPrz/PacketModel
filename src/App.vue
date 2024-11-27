@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref } from 'vue'
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
 import BasicData from './components/BasicData.vue'
@@ -49,62 +49,8 @@ const updateShippingService = (newData) => shippingService.value = newData
   <div id="app">
     <Header></Header>
 
-    <main class="flex-shrink-0">
-      <div class="container mb-5">
-        <h1 class="my-5 text-center text-md-start">Get a shipping quote</h1>
-        <p class="my-5 text-center text-md-start description">We can offer you an instant quote for your shipping needs. Complete your shipping details to get our partner's options and choose the one that suits you best.</p>
-        <div class="row text-center">
-          <div class="col-md-6 col-lg-3">
-            <div>
-              <p class="fs-5 fw-bold text-secondary mb-0">1</p>
-              <p class="fw-bold">Enter basic shipment data</p>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3">
-            <div>
-              <p class="fs-5 fw-bold text-secondary mb-0">2</p>
-              <p class="fw-bold">Select one of our quote options</p>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3">
-            <p class="fs-5 fw-bold text-secondary mb-0">3</p>
-            <p class="fw-bold">Complete the shipment details</p>
-          </div>
-          <div class="col-md-6 col-lg-3">
-            <p class="fs-5 fw-bold text-secondary mb-0">4</p>
-            <p class="fw-bold">Confirm your order</p>
-          </div>
-        </div>
-
-        <div>
-          <div class="forms-container mx-5">
-            <!-- Using the idea under the hood of v-model:
-                https://vuejs.org/guide/components/v-model.html 
-                instead of using v-model I'm using a v-bind prop and an update event through emit-->
-            <BasicData 
-              v-if="currentStep === 1"
-              :shippingData="shippingData"
-              @update:shippingData="updateShippingData"
-              :currentStep="currentStep"
-              @update:currentStep="updateCurrentStep"></BasicData>
-
-            <Quotes v-if="currentStep === 2"
-              :shippingData="shippingData"
-              @update:shippingData="updateShippingData"
-              :currentStep="currentStep"
-              @update:currentStep="updateCurrentStep"
-              :shippingService="shippingService"
-              @update:shippingService="updateShippingService"></Quotes>
-
-            <Details v-if="currentStep === 3"
-              :shippingData="shippingData"
-              @update:shippingData="updateShippingData"
-              :currentStep="currentStep"
-              @update:currentStep="updateCurrentStep"></Details>
-
-          </div>
-        </div>
-      </div>
+    <main class="flex-shrink-0 flex-grow-1 d-flex flex-column">
+      <router-view />
     </main>
 
     <Footer></Footer>
@@ -118,14 +64,6 @@ const updateShippingService = (newData) => shippingService.value = newData
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-}
-
-.forms-container {
-  margin: 5rem 0 5rem 0;
-}
-
-main {
-  margin-bottom: 4rem;
 }
 
 </style>
